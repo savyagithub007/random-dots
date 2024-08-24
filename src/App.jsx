@@ -18,20 +18,21 @@ function App() {
 
   
   const getRandomColor = () => {
-    // return colors(Math.floor(Math.random() * colors.length));
     return colors[Math.floor(Math.random() * colors.length)]
   };
 
 
+
   const Click = (event) => {
-    const { clientX, clientY } = event;
+    const {clientX, clientY} = event;
     setDots([...dots, {x: clientX, y: clientY, color: getRandomColor() }])
-    
+
     setRedoStack([]);
-  };
+  }
 
 
-  const handleUndo = () => {
+  const handleUndo = (event) => {
+    event.stopPropagation();
     if (dots.length > 0) {
       const newDots = [...dots];
       const lastDot = newDots.pop();
@@ -41,7 +42,8 @@ function App() {
   };
 
 
-  const handleRedo = () => {
+  const handleRedo = (event) => {
+    event.stopPropagation();
     if (redoStack.length > 0) {
       const newRedoStack = [...redoStack];
       const lastRedoDot = newRedoStack.pop();
@@ -51,11 +53,13 @@ function App() {
   };
 
 
-  const handleReset = () => {
+  const handleReset = (event) => {
+    event.stopPropagation();
     setDots([]);
     setRedoStack([]);
   };
 
+  
 
 
 
